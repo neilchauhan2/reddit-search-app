@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="./index.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"
+    />
+    <title>Reddit Search App</title>
+  </head>
+  <body>
+    <nav class="navbar is-link" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand ">
+        <a class="navbar-item " href="#">
+          <h4 class="is-size-4 ">Redisearch</h4>
+        </a>
+
+        <a
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Search Tab -->
+    <div class="container">
+      <section class="hero ">
+        <div class="hero-body">
+          <div class="container">
+            <div class="field">
+                <label class="label">Search Term</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Search Term">
+                </div>
+              </div>
+
+              <div class="field">
+                    <label class="label">Sort by:</label>
+                <div class="control">
+                  <label class="radio">
+                    <input type="radio" name="question">
+                    Relevance
+                  </label>
+                  <label class="radio">
+                    <input type="radio" name="question">
+                    Latest
+                  </label>
+                </div>
+              </div>
+
+              <div class="field">
+                    <label class="label">Results per page</label>
+                    <div class="control">
+                      <input class="input" type="number">
+                    </div>
+                  </div>
+
+                  <button class="button is-fullwidth is-link">Search</button>
+
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
