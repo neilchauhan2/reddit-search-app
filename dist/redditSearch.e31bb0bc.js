@@ -117,9 +117,78 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"index.js":[function(require,module,exports) {
+})({"redditapi.js":[function(require,module,exports) {
+"use strict";
 
-},{}],"../../Users/neilc/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var search = function search(keyword, limit, sortby) {
+  return fetch("https://cors-anywhere.herokuapp.com/http://www.reddit.com/search.json?q=".concat(keyword, "&sort=").concat(sortby, "&limit=").concat(limit)).then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    return data.data.children.map(function (item) {
+      return item.data;
+    });
+  }).catch(function (err) {
+    return console.log(error);
+  });
+};
+
+var _default = {
+  search: search
+};
+exports.default = _default;
+},{}],"index.js":[function(require,module,exports) {
+"use strict";
+
+var _redditapi = _interopRequireDefault(require("./redditapi"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var searchForm = document.getElementById("search-form");
+var searchTerm = document.getElementById("search-term");
+searchForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  var keyword = searchTerm.value;
+
+  if (keyword === "") {
+    showAlert("Please enter a search term!!!", "is-danger");
+  }
+
+  searchTerm.value = "";
+  var sortby = document.querySelector("input[name=\"sortby\"]:checked").value;
+  var searchLimit = document.getElementById("limit").value; //   Search on reddit
+
+  _redditapi.default.search(keyword, searchLimit, sortby).then(function (result) {
+    console.log(result);
+    var output = "";
+    result.forEach(function (post) {
+      output += "\n        <div class=\"column is-3\">\n        \n        <div class=\"card\">\n        <div class=\"card-image\">\n          <figure class=\"image is-4by3\">\n            <img src=\"https://bulma.io/images/placeholders/1280x960.png\" alt=\"Placeholder image\">\n          </figure>\n        </div>\n        <div class=\"card-content\">\n          <div class=\"media\">\n            \n            <div class=\"media-content\">\n              <p class=\"title is-4\">".concat(post.title, "</p>\n            </div>\n          </div>\n      \n          <div class=\"content\">\n          ").concat(textTruncate(post.selftext, 100), "\n          </div>\n        </div>\n      </div>\n        </div>\n        ");
+    });
+    document.getElementById("result").innerHTML = output;
+  });
+});
+
+var showAlert = function showAlert(msg, className) {
+  var div = document.createElement("div");
+  div.className = "notification ".concat(className, " ");
+  div.appendChild(document.createTextNode(msg));
+  var container = document.getElementById("search-section-container");
+  container.insertBefore(div, searchForm);
+  setTimeout(function () {
+    container.removeChild(div);
+  }, 3000);
+};
+
+var textTruncate = function textTruncate(txt, limit) {
+  var shortText = txt.indexOf(" ", limit);
+  if (shortText == -1) return txt;
+  return txt.substring(0, shortText);
+};
+},{"./redditapi":"redditapi.js"}],"../../Users/neilc/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -147,7 +216,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62216" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64652" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
