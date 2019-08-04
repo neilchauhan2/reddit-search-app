@@ -1,4 +1,5 @@
 import reddit from "./redditapi";
+import redditLogo from "./reddit-logo.jpg";
 const searchForm = document.getElementById("search-form");
 const searchTerm = document.getElementById("search-term");
 
@@ -17,13 +18,14 @@ searchForm.addEventListener("submit", e => {
     console.log(result);
     let output = "";
     result.forEach(post => {
+      let image = post.preview ? post.preview.images[0].source.url : redditLogo;
       output += `
         <div class="column is-3">
         
         <div class="card">
         <div class="card-image">
           <figure class="image is-4by3">
-            <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+            <img src=${image} alt="Placeholder image">
           </figure>
         </div>
         <div class="card-content">
@@ -37,6 +39,10 @@ searchForm.addEventListener("submit", e => {
           <div class="content">
           ${textTruncate(post.selftext, 100)}
           </div>
+          <a class="button is-link is-fullwidth" href=https://www.reddit.com/${
+            post.permalink
+          }
+           target="_blank"> Read More </a>
         </div>
       </div>
         </div>

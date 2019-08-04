@@ -141,10 +141,14 @@ var _default = {
   search: search
 };
 exports.default = _default;
+},{}],"reddit-logo.jpg":[function(require,module,exports) {
+module.exports = "/reddit-logo.f44fe1f1.jpg";
 },{}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _redditapi = _interopRequireDefault(require("./redditapi"));
+
+var _redditLogo = _interopRequireDefault(require("./reddit-logo.jpg"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -166,7 +170,8 @@ searchForm.addEventListener("submit", function (e) {
     console.log(result);
     var output = "";
     result.forEach(function (post) {
-      output += "\n        <div class=\"column is-3\">\n        \n        <div class=\"card\">\n        <div class=\"card-image\">\n          <figure class=\"image is-4by3\">\n            <img src=\"https://bulma.io/images/placeholders/1280x960.png\" alt=\"Placeholder image\">\n          </figure>\n        </div>\n        <div class=\"card-content\">\n          <div class=\"media\">\n            \n            <div class=\"media-content\">\n              <p class=\"title is-4\">".concat(post.title, "</p>\n            </div>\n          </div>\n      \n          <div class=\"content\">\n          ").concat(textTruncate(post.selftext, 100), "\n          </div>\n        </div>\n      </div>\n        </div>\n        ");
+      var image = post.preview ? post.preview.images[0].source.url : _redditLogo.default;
+      output += "\n        <div class=\"column is-3\">\n        \n        <div class=\"card\">\n        <div class=\"card-image\">\n          <figure class=\"image is-4by3\">\n            <img src=".concat(image, " alt=\"Placeholder image\">\n          </figure>\n        </div>\n        <div class=\"card-content\">\n          <div class=\"media\">\n            \n            <div class=\"media-content\">\n              <p class=\"title is-4\">").concat(post.title, "</p>\n            </div>\n          </div>\n      \n          <div class=\"content\">\n          ").concat(textTruncate(post.selftext, 100), "\n          </div>\n          <a class=\"button is-link is-fullwidth\" href=https://www.reddit.com/").concat(post.permalink, "\n           target=\"_blank\"> Read More </a>\n        </div>\n      </div>\n        </div>\n        ");
     });
     document.getElementById("result").innerHTML = output;
   });
@@ -188,7 +193,7 @@ var textTruncate = function textTruncate(txt, limit) {
   if (shortText == -1) return txt;
   return txt.substring(0, shortText);
 };
-},{"./redditapi":"redditapi.js"}],"../../Users/neilc/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./redditapi":"redditapi.js","./reddit-logo.jpg":"reddit-logo.jpg"}],"../../Users/neilc/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -216,7 +221,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64652" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59924" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -392,4 +397,4 @@ function hmrAcceptRun(bundle, id) {
   }
 }
 },{}]},{},["../../Users/neilc/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
-//# sourceMappingURL=/redditSearch.e31bb0bc.js.map
+//# sourceMappingURL=/redditsearch.e31bb0bc.js.map
